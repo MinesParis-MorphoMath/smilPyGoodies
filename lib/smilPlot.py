@@ -12,12 +12,17 @@
 
 import smilPython as sp
 
-from   matplotlib import pyplot as plt
-import matplotlib.gridspec as gridspec
+import numpy as np
+
+import matplotlib        as mpl
+import matplotlib.pyplot as plt
+import matplotlib.image  as mpimg
+
 import matplotlib.cm       as cm
 import matplotlib.colors   as cl
 
-import numpy as np
+import matplotlib.gridspec as gridspec
+
 import random
 
 #
@@ -33,149 +38,61 @@ def randColormap(SEED = 448):
 # Global colormap used as a unique LUT
 randcmap = randColormap(448)
 
+
 #
 #
 #
-def smilToNumpyPlot(imIn,labelImage = False):
-  if (imIn.getTypeAsString() == "RGB"):
-    imIn3ch = sp.Image()
-    sp.splitChannels(imIn, imIn3ch)
-    imInArr = imIn3ch.getNumArray()
-    imInArr = np.rot90(imInArr, -1)
-    imInArr = np.fliplr(imInArr)
-    plt.figure()
-    plt.imshow(imInArr)
-    plt.show()
+def smilPlot(iml, titles = [], ncols = 2, falseColor = False):
+  """
+   smilPlot :
+  """
+
+  def showSmilImage(im, i):
+    print("   pos = {:d} {:d} {:d}". format(nrows, ncols, i))
+    return True
+
+  img = []
+  if isinstance(iml, list):
+    img = iml
   else:
-    imInArr = imIn.getNumArray()
-    imInArr = np.rot90(imInArr, -1)
-    imInArr = np.fliplr(imInArr)
-    if not labelImage:
-      plt.figure()
-      plt.imshow(imInArr, cmap = cm.Greys_r) 
-      plt.show()
-    else:
-      plt.figure()
-      plt.imshow(imInArr, cmap = randcmap)
-      plt.show()
+    img.append(iml)
 
-#
-#
-#
-def smilToNumpyPlotNoNorm(imIn,labelImage = False):
-  if (imIn.getTypeAsString() == "RGB"):
-    imIn3ch = sp.Image()
-    sp.splitChannels(imIn,imIn3ch)
-    imInArr = imIn3ch.getNumArray()
-    imInArr = np.rot90(imInArr, -1)
-    imInArr = np.fliplr(imInArr)
-    plt.figure()
-    plt.imshow(imInArr)
-    plt.show()
-  else:
-    imInArr = imIn.getNumArray()
-    imInArr = np.rot90(imInArr, -1)
-    imInArr = np.fliplr(imInArr)
-    if not labelImage:
-      plt.figure()
-      plt.imshow(imInArr, cmap = "gray", norm = cl.NoNorm()) 
-      plt.show()
-    else:
-      plt.figure()
-      plt.imshow(imInArr, cmap = randcmap)
-      plt.show()
+  nb = len(img)
+  if nb == 0:
+    return false
+  while len(titles) < nb:
+    titles.append(None)
 
-#
-#
-#
-def X_singlePlot(imIn, ax, label):
-  if (imIn.getTypeAsString() == "RGB"):
-    im3ch = sp.Image()
-    sp.splitChannels(imIn, im3ch)
-    imArr = im3ch.getNumArray()
-    imArr = np.rot90(imArr, -1)
-    imArr = np.fliplr(imArr)
-    ax.imshow(imArr)
-  else:
-    imInArr = imIn.getNumArray()
-    imInArr = np.rot90(imInArr, -1)
-    imInArr = np.fliplr(imInArr)
-    if not label:
-      ax.imshow(imInArr, cmap = cm.Greys_r, norm = cl.NoNorm())
-    else:
-      ax.imshow(imInArr, cmap = randcmap)
+  if nb < ncols:
+    ncols = nb
+  nrows = nb // ncols
+  if nb % ncols > 0:
+    nrows += 1
 
-#
-#
-#
-def smilPlot(imIn = [], label = [], title = []):
-  #
-  #
-  def singlePlot(imIn, ax, label):
-    if (imIn.getTypeAsString() == "RGB"):
-      im3ch = sp.Image()
-      sp.splitChannels(imIn, im3ch)
-      imArr = im3ch.getNumArray()
-      imArr = np.rot90(imArr, -1)
-      imArr = np.fliplr(imArr)
-      ax.imshow(imArr)
-    else:
-      imInArr = imIn.getNumArray()
-      imInArr = np.rot90(imInArr, -1)
-      imInArr = np.fliplr(imInArr)
-      if not label:
-        ax.imshow(imInArr, cmap = cm.Greys_r, norm = cl.NoNorm())
-      else:
-        ax.imshow(imInArr, cmap = randcmap)
-
-  #
-  #
-  nb = len(imIn)
-
-  multirow = False
-
-  #fig = plt.figure(constrained_layout = multirow)
-  fig = plt.figure()
-
-  if multirow:
-    Nc = 2
-    Nr = nb // Nc + 1
-  else:
-    Nc = nb
-    Nr = 1
-
-  gs = gridspec.GridSpec(nrows = Nr, ncols = Nc, figure = fig)
-  gs.update(left = 0.05, right = 1.7, wspace = 0.4)
+  plt.ion()
+  plt.clf()
   ax = []
-  while len(label) < nb:
-    label.append(False)
-  while len(title) < nb:
-    title.append("")
-  for i in range(0, nb):
-    ir = i // Nc
-    ic = i % Nc
-    if multirow:
-        ax.append(plt.subplot(gs[ir, ic], title = title[i]))
+  print(" {:2d} rows and {:2d} cols".format(nrows, ncols))
+  for i in range(1, nb + 1):
+    print("Will show image {:d}".format(i))
+    if not titles[i - 1] is None:
+      title = titles[i - 1]
     else:
-        ax.append(plt.subplot(gs[0, i], title = title[i]))
-    singlePlot(imIn[i], ax[i], label[i])
+      title = img[i - 1].getName()
+      if title == '':
+        title = "Image {:d}".format(i)
+    a = plt.subplot(nrows, ncols, i, title = title)
+    ax.append(a)
+    a.axis('off')
 
-  plt.show()
+    showSmilImage(img[i-1], i)
 
-#
-#
-#
-def smilToNumpyPlot(imIn, labelImage = [False]):
-    smilPlot([imIn], labelImage)
+    im = img[i - 1].getNumArray()
+    im = im.T
+    plt.imshow(im, cmap = "gray")
 
-def smilToNumpyPlot2(imIn, imIn2, labelImage = [False, False]):
-    smilPlot([imIn, imIn2], labelImage)
+  return ax
 
-def smilToNumpyPlot3(imIn, imIn2, imIn3, labelImage = [False, False, False]):
-    smilPlot([imIn, imIn2, imIn3], labelImage)
 
-def smilToNumpyPlot4(imIn1, imIn2, imIn3, imIn4,
-                     labelImage = [False, False, False, False]):
-    smilPlot([imIn, imIn2, imIn3, imIn4], labelImage)
 
 
