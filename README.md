@@ -1,3 +1,8 @@
 
-# SMIL examples - notebooks
+# smilPyGoodies
+
+Some goodies to help use Smil under Python
+
+
+
 
