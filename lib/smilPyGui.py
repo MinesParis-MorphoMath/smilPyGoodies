@@ -124,40 +124,29 @@ class smilPyGui:
   #
   #
   #
+  def refresh(self):
+    nb = len(self.img)
+    for i in range(0, nb):
+      self.__showImage(i)
+
+  #
+  #
+  #
   def __show(self):
     self.ax = []
     nb = len(self.img)    
     for i in range(0, nb):
       a = plt.subplot(self.nrows, self.ncols, i + 1, title = self.titles[i])
-      a.axis('off')
       self.ax.append(a)
+      self.__showImage(i)
 
-      cmap = None
-      imType = self.img[i].getTypeAsString()
-      if (imType == "RGB"):
-        imc = sp.Image()
-        sp.splitChannels(self.img[i], imc)
-      else:
-        imc = self.img[i]
-        if self.fakeColor[i]:
-          cmap = self.gcmap
-        else:
-          cmap = "gray"
-
-      im = imc.getNumArray()
-      im = np.rot90(im, -1)
-      im = np.fliplr(im)
-      a.imshow(im, cmap = cmap)
     self.shown = True
 
   #
   #
   #
-  def refresh(self):
-    nb = len(self.img)    
-    for i in range(0, nb):
+  def __showImage(self, i):
       self.ax[i].axis('off')
-
       cmap = None
       imType = self.img[i].getTypeAsString()
       if (imType == "RGB"):
@@ -173,7 +162,6 @@ class smilPyGui:
       im = imc.getNumArray()
       im = np.rot90(im, -1)
       im = np.fliplr(im)
-
       self.ax[i].imshow(im, cmap = cmap)
 
 # End of smilPyGui
