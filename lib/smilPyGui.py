@@ -1,44 +1,42 @@
+
+#
+#
+# History : 
+#   2019/11/29 - José-Marcio Martins da Cruz
+#       Created
+# TODO :
+#   * 3D images - how to ???
+#   * 16 and 32 bits images - convert them to float ?
+#
+# Inspired by a previous script by Amin Fehri to show Smil Images inside
+# Jupyter notebooks. This is a full rewrite using Python classes with many
+# improvements
+#
+
 #
 #
 #
 import smilPython as sp
 
-import numpy as np
-
+import numpy             as np
 import matplotlib        as mpl
 import matplotlib.pyplot as plt
 import matplotlib.image  as mpimg
-
-import matplotlib.cm       as cm
-import matplotlib.colors   as cl
-
-import matplotlib.gridspec as gs
+import matplotlib.colors as cl
 
 import random
 
 #
 #
 #
-import smilPython as sp
-
-import numpy as np
-
-import matplotlib        as mpl
-import matplotlib.pyplot as plt
-import matplotlib.image  as mpimg
-
-import matplotlib.cm       as cm
-import matplotlib.colors   as cl
-
-import random
-
-#
-#
-#
-def randColorMap(seed = 448):
+blackbg = True
+def randColorMap(seed = 449):
   random.seed(seed)
   randarray = np.random.rand(255, 3)
-  randarray[0] = [0, 0, 0]
+  if blackbg:
+    randarray[0] = [0, 0, 0]
+  else:
+    randarray[0] = [1, 1, 1]
   cmap = cl.ListedColormap(randarray)
   return cmap
 
@@ -113,7 +111,7 @@ class smilPyGui:
       if type(onGui).__name__ == 'smilPyGui':
         self.fignum = onGui.fignum
         self.fig = plt.figure(self.fignum)
-        plt.clf()
+        self.fig.clf()
     if self.fignum == 0:
       self.fig = plt.figure()
       self.fignum = plt.gcf().number
@@ -123,14 +121,12 @@ class smilPyGui:
 
   #
   #
-  #
   def refresh(self):
     nb = len(self.img)
     for i in range(0, nb):
       self.__showImage(i)
 
-  #
-  #
+  # Private methods
   #
   def __show(self):
     self.ax = []
@@ -139,10 +135,8 @@ class smilPyGui:
       a = plt.subplot(self.nrows, self.ncols, i + 1, title = self.titles[i])
       self.ax.append(a)
       self.__showImage(i)
-
     self.shown = True
 
-  #
   #
   #
   def __showImage(self, i):

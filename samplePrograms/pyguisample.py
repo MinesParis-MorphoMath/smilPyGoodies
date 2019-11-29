@@ -35,7 +35,8 @@ if True:
   iml = sp.Image(imb)
   sp.copy(imb, img)
   sp.copy(imb, iml)
-  gui3 = smilPyGui([imb, img, iml], titles = ["Image 5", "Image 6"], 
+  gui3 = smilPyGui([imb, img, iml], 
+                   titles = ["Original", "Watershed", "Bassins"], 
                    fakeColor = [False, True, True])
   input("Press Enter to continue...")
 
