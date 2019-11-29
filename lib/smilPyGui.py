@@ -35,11 +35,38 @@ import random
 #
 #
 #
+def randColorMap(seed = 448):
+  random.seed(seed)
+  randarray = np.random.rand(255, 3)
+  randarray[0] = [0, 0, 0]
+  cmap = cl.ListedColormap(randarray)
+  return cmap
+
+
+#
+#
+#
 class smilPyGui:
+  """
+  class smilPyGui :
+    Parameters :
+      im        : an image or a list of images
+      ncols     : number of columns
+      titles    : A list of names to be shown. If empty, names will be taken
+                  from the images by calling "im.getName()"
+      onGui     : if present, will be shown in a previously defined 
+                  smilPyGui instance
+      fakeColor : with gray images use a randColorMap - useful to present
+                  different regions in labelled images.
+    Methods :
+      refresh : update display window when some images were modified
+  """
   #
   #
   #
-  def __init__(self, im, ncols = 4, titles = [], onGui = None):
+  def __init__(self, im, ncols = 4, titles = [], onGui = None, fakeColor = False):    
+    self.randCMap = randColorMap()
+
     self.img = []
     if isinstance(im, list):
       self.img = im
@@ -51,9 +78,21 @@ class smilPyGui:
     if isinstance(titles, list):
       self.titles = titles
     else:
-      for i in range(0, nb):
-        self.titles.append(self.img[i].getName())
-    
+      if not titles is None:
+        self.titles.append(titles)
+    for i in range(len(self.titles), nb):
+      self.titles.append(self.img[i].getName())
+
+    self.fakeColor = []
+    if isinstance(fakeColor, list):
+      self.fakeColor = fakeColor
+    else:
+      if type(fakeColor).__name__ != 'bool':
+        fakeColor = False
+      self.fakeColor.append(fakeColor)
+    for i in range(len(self.fakeColor), nb):
+      self.fakeColor.append(False)
+
     if nb < ncols:
       ncols = nb
     self.ncols = ncols
@@ -82,16 +121,28 @@ class smilPyGui:
   #
   def __show(self):
     self.ax = []
-
     nb = len(self.img)    
     for i in range(0, nb):
       a = plt.subplot(self.nrows, self.ncols, i + 1, title = self.titles[i])
       a.axis('off')
       self.ax.append(a)
-  
-      im = self.img[i].getNumArray()
-      im = im.T
-      a.imshow(im, cmap = "gray")
+
+      cmap = None
+      imType = self.img[i].getTypeAsString()
+      if (imType == "RGB"):
+        imc = sp.Image()
+        sp.splitChannels(self.img[i], imc)
+      else:
+        imc = self.img[i]
+        if self.fakeColor[i]:
+          cmap = self.randCMap
+        else:
+          cmap = "gray"
+
+      im = imc.getNumArray()
+      im = np.rot90(im, -1)
+      im = np.fliplr(im)
+      a.imshow(im, cmap = cmap)
     self.shown = True
 
   #
@@ -112,46 +163,17 @@ class smilPyGui:
 #
 if __name__ == '__main__':
   print("Running as main...")
+
+  # Display a color image
+  imc = sp.Image("images/Color/astronaut.png")
+  imc.setName("Astronaut")
+  gui0 = smilPyGui(imc)
+  input("Press Enter to continue...")
+
+  # Display two images, side by side
   im = sp.Image("images/Gray/astronaut.png")
-  gui1 = smilPyGui([im, im], titles = ["astronaut 1", "astronaut 2"])
+  gui1 = smilPyGui([im, im], titles = ["Image 1", "Image 2"])
   input("Press Enter to continue...")
 
-  gui2 = smilPyGui([im, im], titles = ["astronaut 3", "astronaut 4"])
-  input("Press Enter to continue...")
-
-  im2 = sp.Image(im)
-  sp.copy(im, im2)
-  gui3 = smilPyGui([im, im2], titles = ["astronaut 5", "astronaut 6"], 
-                        onGui = gui1)
-  input("Press Enter to continue...")
-  sp.gradient(im, im2)
-  gui3.refresh()
-  input("Press Enter to continue...")
-
-  
-  if True:
-    se = sp.CrossSE()
-    sz = 3
-
-    img = []
-    img.append(sp.Image("images/Gray/lena.png"))
-
-    for i in range(1, 8):
-      img.append(sp.Image(img[0]))
- 
-    sp.dilate(img[0],    img[1], se(sz))
-    sp.erode(img[0],     img[2], se(sz))
-    sp.open(img[0],      img[3], se(sz))
-    sp.close(img[0],     img[4], se(sz))
-    sp.gradient(img[0],  img[5])
-    sp.inv(img[0],       img[6])
-    sp.threshold(img[0], img[7])
-
-    titles = ["Original", "Dilate", "Erode", "Open", 
-              "Close", "Gradient", "Inverse", "Threshold"]
-
-    gui = smilPyGui(img, ncols = 4, titles = titles)
-
-    input("Press Enter to continue...")
 
 
