@@ -42,6 +42,7 @@ def randColorMap(seed = 448):
   cmap = cl.ListedColormap(randarray)
   return cmap
 
+gcmap = None
 
 #
 #
@@ -61,11 +62,15 @@ class smilPyGui:
     Methods :
       refresh : update display window when some images were modified
   """
+
   #
   #
   #
   def __init__(self, im, ncols = 4, titles = [], onGui = None, fakeColor = False):    
-    self.randCMap = randColorMap()
+    global gcmap
+    if gcmap is None:
+      gcmap = randColorMap()
+    self.gcmap = gcmap
 
     self.img = []
     if isinstance(im, list):
@@ -135,7 +140,7 @@ class smilPyGui:
       else:
         imc = self.img[i]
         if self.fakeColor[i]:
-          cmap = self.randCMap
+          cmap = self.gcmap
         else:
           cmap = "gray"
 
@@ -152,9 +157,25 @@ class smilPyGui:
     nb = len(self.img)    
     for i in range(0, nb):
       self.ax[i].axis('off')
-      im = self.img[i].getNumArray()
-      im = im.T
-      self.ax[i].imshow(im, cmap = "gray")
+
+      cmap = None
+      imType = self.img[i].getTypeAsString()
+      if (imType == "RGB"):
+        imc = sp.Image()
+        sp.splitChannels(self.img[i], imc)
+      else:
+        imc = self.img[i]
+        if self.fakeColor[i]:
+          cmap = self.gcmap
+        else:
+          cmap = "gray"
+
+      im = imc.getNumArray()
+      im = np.rot90(im, -1)
+      im = np.fliplr(im)
+
+      self.ax[i].imshow(im, cmap = cmap)
+
 # End of smilPyGui
 
 
