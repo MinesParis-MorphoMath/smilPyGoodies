@@ -5,12 +5,15 @@ Some goodies to help use Smil under Python
 
 # Directory Contents
 
-* __lib__  - Goodies modules
+* __smilGoodies__  - Python modules
 
-* __samplePrograms__ - This directory contains examples using these goodies
+  * __read3D__ : this module helps reading 3D images
+  * __mplGui__ : this module contains a Matplotlib based GUI
 
-* __examples__ - This directory contains examples using Smil
+* __samplePrograms__ - examples on how to use these goodies
 
-* __images__ - A lot of images to play with
+* __examples__ - smilPython examples
+
+* __images__ - some images to play with
 
 

@@ -7,9 +7,6 @@
 # History : 
 #   2019/11/29 - José-Marcio Martins da Cruz
 #       Created
-# TODO :
-#   * 3D images - how to ???
-#   * 16 and 32 bits images - convert them to float ?
 #
 #
 
