@@ -1,5 +1,7 @@
-
 #
+# Inspired by a previous script by Amin Fehri to show Smil Images inside
+# Jupyter notebooks. This is a full rewrite using Python classes with many
+# improvements
 #
 # History : 
 #   2019/11/29 - José-Marcio Martins da Cruz
@@ -7,10 +9,6 @@
 # TODO :
 #   * 3D images - how to ???
 #   * 16 and 32 bits images - convert them to float ?
-#
-# Inspired by a previous script by Amin Fehri to show Smil Images inside
-# Jupyter notebooks. This is a full rewrite using Python classes with many
-# improvements
 #
 
 #
@@ -29,11 +27,11 @@ import random
 #
 #
 #
-blackbg = True
+__blackbg = True
 def randColorMap(seed = 449):
   random.seed(seed)
   randarray = np.random.rand(255, 3)
-  if blackbg:
+  if __blackbg:
     randarray[0] = [0, 0, 0]
   else:
     randarray[0] = [1, 1, 1]
@@ -45,16 +43,16 @@ gcmap = None
 #
 #
 #
-class smilPyGui:
+class mplGui:
   """
-  class smilPyGui :
+  class mplGui :
     Parameters :
       im        : an image or a list of images
       ncols     : number of columns
       titles    : A list of names to be shown. If empty, names will be taken
                   from the images by calling "im.getName()"
       onGui     : if present, will be shown in a previously defined 
-                  smilPyGui instance
+                  mplGui instance
       fakeColor : with gray images use a randColorMap - useful to present
                   different regions in labelled images.
     Methods :
@@ -108,7 +106,7 @@ class smilPyGui:
 
     self.fignum = 0
     if onGui is not None:
-      if type(onGui).__name__ == 'smilPyGui':
+      if type(onGui).__name__ == 'mplGui':
         self.fignum = onGui.fignum
         self.fig = plt.figure(self.fignum)
         self.fig.clf()
@@ -158,7 +156,7 @@ class smilPyGui:
       im = np.fliplr(im)
       self.ax[i].imshow(im, cmap = cmap)
 
-# End of smilPyGui
+# End of mplGui
 
 
 #
@@ -170,12 +168,12 @@ if __name__ == '__main__':
   # Display a color image
   imc = sp.Image("images/Color/astronaut.png")
   imc.setName("Astronaut")
-  gui0 = smilPyGui(imc)
+  gui0 = mplGui(imc)
   input("Press Enter to continue...")
 
   # Display two images, side by side
   im = sp.Image("images/Gray/astronaut.png")
-  gui1 = smilPyGui([im, im], titles = ["Image 1", "Image 2"])
+  gui1 = mplGui([im, im], titles = ["Image 1", "Image 2"])
   input("Press Enter to continue...")
 
 
