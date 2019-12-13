@@ -1,6 +1,6 @@
 
 import smilPython as sp
-from smilPyGui import *
+from mplGui import *
 
 import numpy as np
 
@@ -17,16 +17,16 @@ if True:
   # Display a color image
   imc = sp.Image("images/Color/astronaut.png")
   imc.setName("Astronaut")
-  gui0 = smilPyGui(imc)
+  gui0 = mplGui(imc)
   input("Press Enter to continue...")
 
   # Display two images, side by side
   im = sp.Image("images/Gray/astronaut.png")
-  gui1 = smilPyGui([im, im], titles = ["Image 1", "Image 2"])
+  gui1 = mplGui([im, im], titles = ["Image 1", "Image 2"])
   input("Press Enter to continue...")
 
   # The same but reuse previous window
-  gui2 = smilPyGui([im, im], titles = ["Image 3", "Image 4"], onGui = gui1)
+  gui2 = mplGui([im, im], titles = ["Image 3", "Image 4"], onGui = gui1)
   input("Press Enter to continue...")
 
   # The same but in a new window
@@ -35,7 +35,7 @@ if True:
   iml = sp.Image(imb)
   sp.copy(imb, img)
   sp.copy(imb, iml)
-  gui3 = smilPyGui([imb, img, iml], 
+  gui3 = mplGui([imb, img, iml], 
                    titles = ["Original", "Watershed", "Bassins"], 
                    fakeColor = [False, True, True])
   input("Press Enter to continue...")
@@ -68,7 +68,7 @@ if True:
     titles = ["Original", "Dilate", "Erode", "Open", 
               "Close", "Gradient", "Inverse", "Threshold"]
 
-    gui = smilPyGui(img, ncols = 4, titles = titles)
+    gui = mplGui(img, ncols = 4, titles = titles)
 
     input("Press Enter to continue...")
 
