@@ -47,29 +47,42 @@ if True:
   input("Press Enter to continue...")
 
   # Play with a window with 8 images displayed in 2 rows of 4 columns
-  if True:
-    se = sp.CrossSE()
-    sz = 3
+  se = sp.CrossSE()
+  sz = 3
 
-    img = []
-    img.append(sp.Image("images/Gray/lena.png"))
+  img = []
+  img.append(sp.Image("images/Gray/lena.png"))
 
-    for i in range(1, 8):
-      img.append(sp.Image(img[0]))
- 
-    sp.dilate(img[0],    img[1], se(sz))
-    sp.erode(img[0],     img[2], se(sz))
-    sp.open(img[0],      img[3], se(sz))
-    sp.close(img[0],     img[4], se(sz))
-    sp.gradient(img[0],  img[5])
-    sp.inv(img[0],       img[6])
-    sp.threshold(img[0], img[7])
+  for i in range(1, 8):
+    img.append(sp.Image(img[0]))
 
-    titles = ["Original", "Dilate", "Erode", "Open", 
-              "Close", "Gradient", "Inverse", "Threshold"]
+  titles = ["Original", "Dilate", "Erode", "Open", 
+            "Close", "Gradient", "Inverse", "Threshold"]
+  gui = mplGui(img, ncols = 4, titles = titles)
+  input("Press Enter to continue...")
+    
+  sp.dilate(img[0],    img[1], se(sz))
+  gui.refresh()
+  input("Press Enter to continue...")
+  sp.erode(img[0],     img[2], se(sz))
+  gui.refresh()
+  input("Press Enter to continue...")
+  sp.open(img[0],      img[3], se(sz))
+  gui.refresh()
+  input("Press Enter to continue...")
+  sp.close(img[0],     img[4], se(sz))
+  gui.refresh()
+  input("Press Enter to continue...")
+  sp.gradient(img[0],  img[5])
+  gui.refresh()
+  input("Press Enter to continue...")
+  sp.inv(img[0],       img[6])
+  gui.refresh()
+  input("Press Enter to continue...")
+  sp.threshold(img[0], img[7])
+  gui.refresh()
+  input("Press Enter to continue...")
+  
 
-    gui = mplGui(img, ncols = 4, titles = titles)
-
-    input("Press Enter to continue...")
 
 

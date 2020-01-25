@@ -53,6 +53,12 @@ Take a look in the sample programs to see how to use these modules in your progr
     
     export PYTHONPATH=/installation_path:${PYTHONPATH}
 
+Using it (under Python...) :
+
+    import smilGoodies as sg
+
+    sg.someFunctionCall...
+
 # Sample programs
 
 Still in the directory where you distribution was cloned, you can just type :
