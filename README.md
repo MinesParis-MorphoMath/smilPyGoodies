@@ -5,7 +5,7 @@ Some goodies to help use Smil under Python
 
 # Directory Contents
 
-* __smilGoodies__  - Python modules
+* __smilPyGoodies__  - Python modules
 
   * __smilPyRead3D__ : this module helps reading 3D images
   * __smilPyPlot__ : this module contains a Matplotlib based GUI.
@@ -47,15 +47,26 @@ Take a look in the sample programs to see how to use these modules in your progr
 
 # Installing
 
+## Requirements
+
+__python3-matplotlib__ - Matplotlib
+
+__PyQt__ - Under Ubuntu, package __python3-pyqt5__
+
+__libtiff__ - To be able to read __3D__ tiff files - Under Ubuntu, packages 
+  __libtiff5__, __tifffile__ and (optional) __libtiff-tools__
+
+## Installing
+
     git clone https://github.com/ensmp-cmm/smilPyGoodies
     cd smilPyGoodies
-    cp -pr smilGoodies /installation_path/
+    cp -pr smilPyGoodies /installation_path/
     
     export PYTHONPATH=/installation_path:${PYTHONPATH}
 
-Using it (under Python...) :
+# Using it (under Python...) :
 
-    import smilGoodies as sg
+    import smilPyGoodies as sg
 
     sg.someFunctionCall...
 
@@ -63,8 +74,11 @@ Using it (under Python...) :
 
 Still in the directory where you distribution was cloned, you can just type :
 
-    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} python samplePrograms/smilPyPlotSample.py
+    env PYTHONPATH=$(pwd)/smilPyGoodies:${PYTHONPATH} \
+      python samplePrograms/smilPyPlotSample.py
     
 or
 
-    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} python samplePrograms/read3DSample.py
+    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} \
+      python samplePrograms/read3DSample.py
+

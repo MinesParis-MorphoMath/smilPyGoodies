@@ -16,38 +16,44 @@ import random
 setBackend('qt5agg')
 
 if True:
+  i = 1
   # Display a color image
   imc = sp.Image("images/Color/astronaut.png")
   imc.setName("Astronaut")
-  gui0 = mplGui(imc)
-  input("Press Enter to continue...")
+  gui0 = ImShow(imc)
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
 
   # Display two images, side by side
   im = sp.Image("images/Gray/astronaut.png")
-  gui1 = mplGui([im, im], titles = ["Image 1", "Image 2"])
-  input("Press Enter to continue...")
-
+  gui1 = ImShow([im, im], titles = ["Image 1", "Image 2"])
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
+  
   # The same but reuse previous window
-  gui2 = mplGui([im, im], titles = ["Image 3", "Image 4"], onGui = gui1)
-  input("Press Enter to continue...")
-
+  gui2 = ImShow([im, im], titles = ["Image 3", "Image 4"], onGui = gui1)
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
+  
   # The same but in a new window
   imb = sp.Image("images/Bin/balls.png")
   img = sp.Image(imb)
   iml = sp.Image(imb)
   sp.copy(imb, img)
   sp.copy(imb, iml)
-  gui3 = mplGui([imb, img, iml], 
+  gui3 = ImShow([imb, img, iml], 
                    titles = ["Original", "Watershed", "Bassins"], 
                    fakeColor = [False, True, True])
-  input("Press Enter to continue...")
-
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
+  
   # Refresh the window after a image was modified
   sp.gradient(imb, img)
   sp.label(imb, iml)
   gui3.refresh()
-  input("Press Enter to continue...")
-
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
+  
   # Play with a window with 8 images displayed in 2 rows of 4 columns
   se = sp.CrossSE()
   sz = 3
@@ -60,30 +66,37 @@ if True:
 
   titles = ["Original", "Dilate", "Erode", "Open", 
             "Close", "Gradient", "Inverse", "Threshold"]
-  gui = mplGui(img, ncols = 4, titles = titles)
-  input("Press Enter to continue...")
-    
+  gui = ImShow(img, ncols = 4, titles = titles)
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
+      
   sp.dilate(img[0],    img[1], se(sz))
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
   sp.erode(img[0],     img[2], se(sz))
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
   sp.open(img[0],      img[3], se(sz))
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
   sp.close(img[0],     img[4], se(sz))
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
   sp.gradient(img[0],  img[5])
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
   sp.inv(img[0],       img[6])
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
+  i += 1
   sp.threshold(img[0], img[7])
   gui.refresh()
-  input("Press Enter to continue...")
+  input("{:2d} - Press Enter to continue...".format(i))
   
 
 
