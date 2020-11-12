@@ -3,6 +3,15 @@
 
 Some goodies to help use Smil under Python
 
+Initial goals of this stuff is :
+
+* a trivial replacement of all __Qt__ libraries needed to compile __Smil__. This
+a little bit problematic with different versions of __Qt__ and their 
+availability under different __Linux__ flavors. 
+
+* some functions helping to read __3D__ images stored in __raw__ format or as
+as stack of __2D__ images.
+
 # Directory Contents
 
 * __smilPyGoodies__  - Python modules
@@ -49,11 +58,11 @@ Take a look in the sample programs to see how to use these modules in your progr
 
 ## Requirements
 
-__python3-matplotlib__ - Matplotlib
+* __python3-matplotlib__ - Matplotlib
 
-__PyQt__ - Under Ubuntu, package __python3-pyqt5__
+* __PyQt__ - Under Ubuntu, package __python3-pyqt5__
 
-__libtiff__ - To be able to read __3D__ tiff files - Under Ubuntu, packages 
+* __libtiff__ - To be able to read __3D__ tiff files - Under Ubuntu, packages 
   __libtiff5__, __tifffile__ and (optional) __libtiff-tools__
 
 ## Installing
