@@ -1,8 +1,7 @@
 
 import smilPython as sp
-#import smilGoodies as sg
-import read3D as sg
-#from read3D import *
+import smilPyPlot as sg
+import smilPyRead3D as sg
 
 print("Read a stack of 2D tiff images")
 imm = sg.read3DStack("images/3D/balls", expr = "*")

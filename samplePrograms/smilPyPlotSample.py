@@ -1,17 +1,19 @@
 
 import smilPython as sp
-from mplGui import *
+from   smilPyPlot import *
 
 import numpy as np
 
-import matplotlib        as mpl
-import matplotlib.pyplot as plt
-import matplotlib.image  as mpimg
+#import matplotlib        as mpl
+#import matplotlib.pyplot as plt
+#import matplotlib.image  as mpimg
 
-import matplotlib.cm       as cm
-import matplotlib.colors   as cl
+#import matplotlib.cm       as cm
+#import matplotlib.colors   as cl
 
 import random
+
+setBackend('qt5agg')
 
 if True:
   # Display a color image

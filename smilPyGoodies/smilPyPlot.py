@@ -11,15 +11,35 @@
 #
 #
 #
+import importlib  as ilib
 import smilPython as sp
 
 import numpy             as np
 import matplotlib        as mpl
+#mpl.use('qt5agg')
 import matplotlib.pyplot as plt
 import matplotlib.image  as mpimg
 import matplotlib.colors as cl
 
 import random
+
+#
+#
+#
+def setBackend(backend = ""):
+  """
+    Requirements :
+      qt5agg   : PyQt5
+      GTK3Agg  : PyGObject and pycairo or cairocffi
+      GTKCairo : PyGObject and pycairo or cairocffi
+      TkAgg    : TkInter
+  """
+  guiBackends = ['qt5agg', 'gtk3agg', 'gtk3cairo', 'tkagg']
+  if setBackend != "":
+    mpl.use(backend)
+    ilib.reload(plt)
+  if backend.lower() in guiBackends:
+    plt.ion()
 
 #
 #
@@ -135,7 +155,7 @@ class mplGui:
   #
   #
   def __showImage(self, i):
-      self.ax[i].axis('off')
+      self.ax[i].axis('on')
       cmap = None
       imType = self.img[i].getTypeAsString()
       if (imType == "RGB"):
