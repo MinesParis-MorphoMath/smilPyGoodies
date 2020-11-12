@@ -7,8 +7,8 @@ Some goodies to help use Smil under Python
 
 * __smilGoodies__  - Python modules
 
-  * __read3D__ : this module helps reading 3D images
-  * __mplGui__ : this module contains a Matplotlib based GUI.
+  * __smilPyRead3D__ : this module helps reading 3D images
+  * __smilPyPlot__ : this module contains a Matplotlib based GUI.
     This module has two reasons to be :
     * no dependency on Qt libraries;
     * can be used with jupyter notebooks.
@@ -23,7 +23,7 @@ Some goodies to help use Smil under Python
 
 Take a look in the sample programs to see how to use these modules in your program.
 
-##  read3D
+##  smilPyRead3D
 
   Ce module complements the Smil native read functions, which allows reading 3D images only from images in the RAW format.
 
@@ -31,13 +31,13 @@ Take a look in the sample programs to see how to use these modules in your progr
 * as a stack of 2D images of the same size and data type;
 * TIFF 3D images, both in float or integer data type.
 
-## mplGui
+## smilPyPlot
 
   The first goal of this module is to replace the Qt based graphical user interface, which causes some problems under some Linux distributions.
 
   Also it can be used on some web kind applications such as jupyter. This isn't possible with the Qt based GUI.
 
-  One of the advantages mplGui is to be able to show more than one image on the same window (or space).
+  One of the advantages smilPyPlot is to be able to show more than one image on the same window (or space).
 
   Two obvious disadvantages are limited interactivity and impossibility to display 3D images, for the moment. 
 
@@ -53,12 +53,18 @@ Take a look in the sample programs to see how to use these modules in your progr
     
     export PYTHONPATH=/installation_path:${PYTHONPATH}
 
+Using it (under Python...) :
+
+    import smilGoodies as sg
+
+    sg.someFunctionCall...
+
 # Sample programs
 
 Still in the directory where you distribution was cloned, you can just type :
 
-    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} python sampleprograms/mplGuiSample.py
+    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} python samplePrograms/smilPyPlotSample.py
     
 or
 
-    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} python sampleprograms/read3DSample.py
+    env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} python samplePrograms/read3DSample.py

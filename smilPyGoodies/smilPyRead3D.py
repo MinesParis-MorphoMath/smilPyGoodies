@@ -23,8 +23,8 @@ try:
   # need TIFF and TiffFile to be able to read 3D tiff files
   from libtiff import *
 except:
-  print("\n    read3d : Can't import module python-libtiff\n")
-  print("\n      Reading 3D .tiff files isn't available\n")
+  print("    read3d : Can't import module python-libtiff")
+  print("    Reading 3D .tiff files isn't available\n")
   tiffOK = False
   pass
 
