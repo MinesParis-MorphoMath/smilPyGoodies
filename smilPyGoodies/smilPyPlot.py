@@ -183,7 +183,6 @@ class ImShow:
     #
     #
     def __showImage(self, i):
-        print("axis ", self.showAxis)
         self.ax[i].axis(self.showAxis)
         cmap = None
         imType = self.img[i].getTypeAsString()
