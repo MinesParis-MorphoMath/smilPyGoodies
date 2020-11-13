@@ -1,0 +1,11 @@
+
+TODO :
+
+
+
+BUGS :
+  On jupyter notebooks :
+  * better control on image size
+  * message indicating that libtiff5 was not found
+  * hide message "<smilPyPlot.ImShow at 0x7fc07eefdac8>"
+  
