@@ -20,7 +20,7 @@ if True:
   # Display a color image
   imc = sp.Image("images/Color/astronaut.png")
   imc.setName("Astronaut")
-  gui0 = ImShow(imc)
+  gui0 = ImShow(imc, showAxis = "On")
   input("{:2d} - Press Enter to continue...".format(i))
   i += 1
 
@@ -96,7 +96,7 @@ if True:
   i += 1
   sp.threshold(img[0], img[7])
   gui.refresh()
-  input("{:2d} - Press Enter to continue...".format(i))
+  input("{:2d} - Press Enter to quit...".format(i))
   
 
 

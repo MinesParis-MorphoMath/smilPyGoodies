@@ -30,7 +30,8 @@ as stack of __2D__ images.
 
 # Modules
 
-Take a look in the sample programs to see how to use these modules in your program.
+Take a look in the sample programs to see how to use these modules in your 
+program.
 
 ##  smilPyRead3D
 
@@ -42,15 +43,18 @@ Take a look in the sample programs to see how to use these modules in your progr
 
 ## smilPyPlot
 
-  The first goal of this module is to replace the Qt based graphical user interface, which causes some problems under some Linux distributions.
+The first goal of this module is to replace the __Qt__ based graphical user interface, which causes some problems under some Linux distributions.
 
-  Also it can be used on some web kind applications such as jupyter. This isn't possible with the Qt based GUI.
+Also it can be used on some web kind applications such as jupyter. This isn't possible with the Qt based GUI.
 
-  One of the advantages smilPyPlot is to be able to show more than one image on the same window (or space).
+One of the advantages smilPyPlot is to be able to show more than one image on 
+the same window (or space).
 
-  Two obvious disadvantages are limited interactivity and impossibility to display 3D images, for the moment. 
+Two obvious disadvantages are limited interactivity and impossibility to 
+display __3D__ images, for the moment. 
 
-  Interactivity is limited to, e.g., things like zooming and consulting pixel values.
+Interactivity is limited to, e.g., things like zooming and consulting pixel 
+values.
 
 
 
@@ -90,4 +94,52 @@ or
 
     env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} \
       python samplePrograms/read3DSample.py
+
+# Short documentation (list of classes and functions)
+
+## smilPyPlot
+
+* __ImShow__
+    ImShow(
+        im,
+        ncols=4,
+        titles=[],
+        onGui=None,
+        fakeColor=False,
+        showAxis='Off',
+    )
+
+    Docstring:
+    class ImShow :
+      Parameters :
+        im        : an image or a list of images
+        ncols     : number of columns
+        titles    : A list of names to be shown. If empty, names will be taken
+                    from the images by calling "im.getName()"
+        onGui     : if present, will be shown in a previously defined 
+                    ImShow instance
+        fakeColor : with gray images use a randColorMap - useful to present
+                    different regions in labelled images.
+        showAxis  : show image axis with scale
+
+      Methods :
+        refresh : update display window when some images were modified
+
+* __setBackend__
+    setBackend(backend='')
+
+    Docstring:
+
+    defBackend(backend) - sets the matplotlib backend to use.
+    
+    Valid values for backend :
+        backend in ['qt5agg', 'gtk3agg', 'gtkcairo', 'tkagg']
+
+    See : https://matplotlib.org/faq/usage_faq.html#what-is-a-backend
+
+    Requirements :
+      qt5agg   : PyQt5
+      gtk3agg  : PyGObject and pycairo or cairocffi
+      gtkcairo : PyGObject and pycairo or cairocffi
+      tkagg    : TkInter
 

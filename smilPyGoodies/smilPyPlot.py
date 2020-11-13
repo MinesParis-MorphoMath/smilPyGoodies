@@ -1,7 +1,7 @@
 #
-# Inspired by a previous script by Amin Fehri to show Smil Images inside
-# Jupyter notebooks. This is a full rewrite using Python classes with many
-# improvements
+# Inspired by a previous script by Samu Blusseru and Amin Fehri to show
+# Smil Images inside Jupyter notebooks. This is a full rewrite using
+# Python classes with many improvements
 #
 # History :
 #   2019/11/29 - José-Marcio Martins da Cruz
@@ -32,6 +32,9 @@ def setBackend(backend=""):
     """
     defBackend(backend) - sets the matplotlib backend to use.
     
+    Valid values for backend :
+        backend in ['qt5agg', 'gtk3agg', 'gtkcairo', 'tkagg']
+
     See : https://matplotlib.org/faq/usage_faq.html#what-is-a-backend
 
     Requirements :
@@ -84,6 +87,8 @@ class ImShow:
                   ImShow instance
       fakeColor : with gray images use a randColorMap - useful to present
                   different regions in labelled images.
+      showAxis  : show image axis with scale
+
     Methods :
       refresh : update display window when some images were modified
   """
@@ -91,7 +96,13 @@ class ImShow:
     #
     #
     #
-    def __init__(self, im, ncols=4, titles=[], onGui=None, fakeColor=False):
+    def __init__(self,
+                 im,
+                 ncols=4,
+                 titles=[],
+                 onGui=None,
+                 fakeColor=False,
+                 showAxis="Off"):
         global gcmap
         if gcmap is None:
             gcmap = randColorMap()
@@ -122,6 +133,8 @@ class ImShow:
             self.fakeColor.append(fakeColor)
         for i in range(len(self.fakeColor), nb):
             self.fakeColor.append(False)
+
+        self.showAxis = showAxis
 
         if nb < ncols:
             ncols = nb
@@ -170,7 +183,8 @@ class ImShow:
     #
     #
     def __showImage(self, i):
-        self.ax[i].axis('on')
+        print("axis ", self.showAxis)
+        self.ax[i].axis(self.showAxis)
         cmap = None
         imType = self.img[i].getTypeAsString()
         if (imType == "RGB"):
@@ -200,10 +214,10 @@ if __name__ == '__main__':
     # Display a color image
     imc = sp.Image("images/Color/astronaut.png")
     imc.setName("Astronaut")
-    gui0 = ImShow(imc)
+    gui0 = ImShow(imc, showAxis = "On")
     input("Press Enter to continue...")
 
     # Display two images, side by side
     im = sp.Image("images/Gray/astronaut.png")
     gui1 = ImShow([im, im], titles=["Image 1", "Image 2"])
-    input("Press Enter to continue...")
+    input("Press Enter to quit...")
