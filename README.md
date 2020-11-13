@@ -100,6 +100,7 @@ or
 ## smilPyPlot
 
 * __ImShow__
+
     ImShow(
         im,
         ncols=4,
@@ -126,6 +127,7 @@ or
         refresh : update display window when some images were modified
 
 * __setBackend__
+
     setBackend(backend='')
 
     Docstring:
