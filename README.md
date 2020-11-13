@@ -12,7 +12,7 @@ availability under different __Linux__ flavors.
 * some functions helping to read __3D__ images stored in __raw__ format or as
 as stack of __2D__ images.
 
-# Directory Contents
+## Directory Contents
 
 * __smilPyGoodies__  - Python modules
 
@@ -28,12 +28,12 @@ as stack of __2D__ images.
 
 * __images__ - some images to play with
 
-# Modules
+## Modules
 
 Take a look in the sample programs to see how to use these modules in your 
 program.
 
-##  smilPyRead3D
+###  smilPyRead3D
 
   Ce module complements the Smil native read functions, which allows reading 3D images only from images in the RAW format.
 
@@ -41,7 +41,7 @@ program.
 * as a stack of 2D images of the same size and data type;
 * TIFF 3D images, both in float or integer data type.
 
-## smilPyPlot
+### smilPyPlot
 
 The first goal of this module is to replace the __Qt__ based graphical user interface, which causes some problems under some Linux distributions.
 
@@ -58,9 +58,9 @@ values.
 
 
 
-# Installing
+## Installing
 
-## Requirements
+### Requirements
 
 * __python3-matplotlib__ - Matplotlib
 
@@ -69,7 +69,7 @@ values.
 * __libtiff__ - To be able to read __3D__ tiff files - Under Ubuntu, packages 
   __libtiff5__, __tifffile__ and (optional) __libtiff-tools__
 
-## Installing
+### Installing
 
     git clone https://github.com/ensmp-cmm/smilPyGoodies
     cd smilPyGoodies
@@ -77,13 +77,13 @@ values.
     
     export PYTHONPATH=/installation_path:${PYTHONPATH}
 
-# Using it (under Python...) :
+## Using it (under Python...) :
 
     import smilPyGoodies as sg
 
     sg.someFunctionCall...
 
-# Sample programs
+## Sample programs
 
 Still in the directory where you distribution was cloned, you can just type :
 
@@ -95,53 +95,53 @@ or
     env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} \
       python samplePrograms/read3DSample.py
 
-# Short documentation (list of classes and functions)
+## Short documentation
 
-## smilPyPlot
+### smilPyPlot
 
-* __ImShow__
+####  __ImShow__
 
-    ImShow(
-        im,
-        ncols=4,
-        titles=[],
-        onGui=None,
-        fakeColor=False,
-        showAxis='Off',
-    )
+      ImShow(
+          im,
+          ncols=4,
+          titles=[],
+          onGui=None,
+          fakeColor=False,
+          showAxis='Off',
+      )
 
-    Docstring:
-    class ImShow :
-      Parameters :
-        im        : an image or a list of images
-        ncols     : number of columns
-        titles    : A list of names to be shown. If empty, names will be taken
-                    from the images by calling "im.getName()"
-        onGui     : if present, will be shown in a previously defined 
-                    ImShow instance
-        fakeColor : with gray images use a randColorMap - useful to present
-                    different regions in labelled images.
-        showAxis  : show image axis with scale
+      Docstring:
+      class ImShow :
+        Parameters :
+          im        : an image or a list of images
+          ncols     : number of columns
+          titles    : A list of names to be shown. If empty, names will be taken
+                      from the images by calling "im.getName()"
+          onGui     : if present, will be shown in a previously defined 
+                      ImShow instance
+          fakeColor : with gray images use a randColorMap - useful to present
+                      different regions in labelled images.
+          showAxis  : show image axis with scale
 
       Methods :
         refresh : update display window when some images were modified
 
-* __setBackend__
+#### __setBackend__
 
-    setBackend(backend='')
+      setBackend(backend='')
 
-    Docstring:
+      Docstring:
 
-    defBackend(backend) - sets the matplotlib backend to use.
+      defBackend(backend) - sets the matplotlib backend to use.
     
-    Valid values for backend :
-        backend in ['qt5agg', 'gtk3agg', 'gtkcairo', 'tkagg']
+      Valid values for backend :
+          backend in ['qt5agg', 'gtk3agg', 'gtkcairo', 'tkagg']
 
-    See : https://matplotlib.org/faq/usage_faq.html#what-is-a-backend
+      See : https://matplotlib.org/faq/usage_faq.html#what-is-a-backend
 
-    Requirements :
-      qt5agg   : PyQt5
-      gtk3agg  : PyGObject and pycairo or cairocffi
-      gtkcairo : PyGObject and pycairo or cairocffi
-      tkagg    : TkInter
+      Requirements :
+        qt5agg   : PyQt5
+        gtk3agg  : PyGObject and pycairo or cairocffi
+        gtkcairo : PyGObject and pycairo or cairocffi
+        tkagg    : TkInter
 
