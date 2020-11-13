@@ -77,7 +77,7 @@ values.
     
     export PYTHONPATH=/installation_path:${PYTHONPATH}
 
-## Using it (under Python...) :
+## Using it :
 
     import smilPyGoodies as sg
 
@@ -89,7 +89,7 @@ Still in the directory where you distribution was cloned, you can just type :
 
     env PYTHONPATH=$(pwd)/smilPyGoodies:${PYTHONPATH} \
       python samplePrograms/smilPyPlotSample.py
-    
+
 or
 
     env PYTHONPATH=$(pwd)/smilGoodies:${PYTHONPATH} \
