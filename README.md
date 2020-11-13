@@ -1,6 +1,6 @@
 
 # smilPyGoodies
-
+ 
 Some goodies to help use Smil under Python
 
 Initial goals of this stuff is :
@@ -97,51 +97,111 @@ or
 
 ## Short documentation
 
+Don't hesitate to take a look at the __Sample Programs__
+
 ### smilPyPlot
 
-####  __ImShow__
+####  * ImShow
 
-      ImShow(
-          im,
-          ncols=4,
-          titles=[],
-          onGui=None,
-          fakeColor=False,
-          showAxis='Off',
-      )
+    ImShow(
+        im,
+        ncols=4,
+        titles=[],
+        onGui=None,
+        fakeColor=False,
+        showAxis='Off',
+    )
 
-      Docstring:
-      class ImShow :
-        Parameters :
-          im        : an image or a list of images
-          ncols     : number of columns
-          titles    : A list of names to be shown. If empty, names will be taken
-                      from the images by calling "im.getName()"
-          onGui     : if present, will be shown in a previously defined 
-                      ImShow instance
-          fakeColor : with gray images use a randColorMap - useful to present
-                      different regions in labelled images.
-          showAxis  : show image axis with scale
+    Docstring:
+    class ImShow :
+      Parameters :
+        im        : an image or a list of images
+        ncols     : number of columns
+        titles    : A list of names to be shown. If empty, names will be taken
+                    from the images by calling "im.getName()"
+        onGui     : a ImShow handle. if present, will be shown in a previously
+                    defined ImShow instance
+        fakeColor : with gray images use a randColorMap - useful to present
+                    different regions in labelled images.
+        showAxis  : show image axis with scale
 
       Methods :
         refresh : update display window when some images were modified
+        
+      Returns :
+        a handle to the class instance. Need this to update the output.
 
-#### __setBackend__
+#### * setBackend
 
-      setBackend(backend='')
+    setBackend(backend='')
 
-      Docstring:
+    Docstring:
 
-      defBackend(backend) - sets the matplotlib backend to use.
+    defBackend(backend) - sets the matplotlib backend to use.
     
-      Valid values for backend :
-          backend in ['qt5agg', 'gtk3agg', 'gtkcairo', 'tkagg']
+    Valid values for backend :
+        backend in ['qt5agg', 'gtk3agg', 'gtkcairo', 'tkagg']
 
-      See : https://matplotlib.org/faq/usage_faq.html#what-is-a-backend
+    See : https://matplotlib.org/faq/usage_faq.html#what-is-a-backend
 
-      Requirements :
-        qt5agg   : PyQt5
-        gtk3agg  : PyGObject and pycairo or cairocffi
-        gtkcairo : PyGObject and pycairo or cairocffi
-        tkagg    : TkInter
+    Requirements :
+      qt5agg   : PyQt5
+      gtk3agg  : PyGObject and pycairo or cairocffi
+      gtkcairo : PyGObject and pycairo or cairocffi
+      tkagg    : TkInter
+
+
+### smilPyRead3D
+
+#### * smilRead3DImage
+
+    read3DImage(
+        fin,
+        width=0,
+        height=0,
+        depth=0,
+        TYPE=None,
+        bSwap=None,
+        post=None,
+    )
+    Docstring:
+    read3DImage : creates a 3D image from a single .raw or .tif image file.
+
+    Parameters :
+      fin     : image file name
+      width,
+      height,
+      depth   : dimensions, only needed for images in raw format
+      TYPE    : TYPE of pixel value. One of 'UINT8', 'UINT16' or 'UINT32'
+                Mandatory for raw images.
+                Output images will be converted to this data type.
+      bSwap   : bytes shall be swapped (lowendian vs bigendian)
+      post    : post process function (a numpy function).
+    Return value :
+      A 3D image if success, None otherwise
+
+#### * read3DStack
+    read3DStack(
+        dir,
+        width=None,
+        height=None,
+        TYPE=None,
+        expr=None,
+        fext=None,
+    )
+    Docstring:
+    read3DStack : creates a 3D image from a stack of 2D images
+
+    Parameters :
+      dir     : directory where to find all 2D image files
+      width,
+      height  : dimensions of each 2D image, only needed for images in 
+                raw format
+      TYPE    : TYPE of pixel value, only needed for raw images. 
+                One of 'UINT8', 'UINT16' or 'UINT32'
+      expr    : regular expression (glob syntax) of filename
+      fext    : file extension
+
+    Return value :
+      A 3D image if success, None otherwise
 
